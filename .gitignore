@@ -1,0 +1,5 @@
+# Ignore the large files
+yolov8x.pt
+runs/detect/predict/08fd33_4.avi
+*.pt
+*.avi
