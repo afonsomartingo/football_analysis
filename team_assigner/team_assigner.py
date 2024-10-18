@@ -2,16 +2,14 @@ from sklearn.cluster import KMeans
 
 class TeamAssigner:
     def __init__(self):
-        # Dictionary to store team colors
         self.team_colors = {}
-        # Dictionary to store player-team assignments
         self.player_team_dict = {}
     
     def get_clustering_model(self, image):
-        # Reshape image into a 2D array where each row is a pixel and each column is a color channel (RGB)
+        # Reshape image in 2D array
         image_2d = image.reshape(-1, 3)
 
-        # Perform KMeans clustering with 2 clusters
+        # Perform KMeans clustering
         kmeans = KMeans(n_clusters=2, init="k-means++", n_init=1)
         kmeans.fit(image_2d)
         return kmeans
@@ -26,8 +24,11 @@ class TeamAssigner:
         # Get clustering model for the top half of the image
         kmeans = self.get_clustering_model(top_half_image)
 
+        # Reshape the top half image to 2D array for prediction
+        top_half_image_2d = top_half_image.reshape(-1, 3)
+
         # Get cluster labels for each pixel in the top half image
-        labels = kmeans.predict(top_half_image)
+        labels = kmeans.predict(top_half_image_2d)
 
         # Reshape the labels to the original shape of the top half image
         clustered_image = labels.reshape(top_half_image.shape[0], top_half_image.shape[1])
