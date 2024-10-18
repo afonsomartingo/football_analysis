@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Load model
-model = YOLO('yolov8x.pt')
+model = YOLO('models/best.pt')
 
 # Set device to 'cuda' for GPU
 model.to('cuda')
