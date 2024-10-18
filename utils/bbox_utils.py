@@ -22,3 +22,16 @@ def get_bbox_width(bbox):
         float: Width of the bounding box
     """
     return bbox[2] - bbox[0]
+
+def measure_distance(p1,p2):
+    """
+    Measure the distance between two points
+
+    Args:
+        p1 (list): Point 1 in the format [x, y]
+        p2 (list): Point 2 in the format [x, y] 
+
+    Returns:
+        float: Distance between the two points    
+    """
+    return ((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)**0.5 
