@@ -5,6 +5,8 @@ from team_assigner import TeamAssigner
 from player_ball_assigner import PlayerBallAssigner
 import numpy as np
 from camera_movement_estimator import CameraMovementEstimator
+from view_transformer import ViewTransformer
+
 
 def main():
     # Read video
@@ -14,15 +16,26 @@ def main():
     #Initialize tracker
     tracker = Tracker('models/best.pt')
 
-    tracks = tracker.get_object_tracker(video_frames,
+    tracks = tracker.get_object_tracks(video_frames,
                                         read_from_stub=True,
                                         stub_path='stubs/tracks_stubs.pkl')
+    
+    # Get object positions
+    tracker.add_position_to_tracks(tracks)
     
     # Initialize camera movement estimator
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
     camera_movement_per_frame = camera_movement_estimator.get_camera_movement(video_frames,
                                                                               read_from_stub=True,
                                                                               stub_path='stubs/camera_movement_stub.pkl')
+    
+    # Adjust object positions to camera movement
+    camera_movement_estimator.adjust_position_to_tracks(tracks, camera_movement_per_frame)
+
+    # View Transformer
+    view_transformer = ViewTransformer()
+    view_transformer.add_transformed_position_to_tracks(tracks)
+
     '''# Save cropped image of a player
     for track_id, player in tracks["players"][0].items():
         bbox = player["bbox"]

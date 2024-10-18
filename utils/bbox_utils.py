@@ -49,3 +49,16 @@ def measure_xy_distance(p1,p2):
         float: Distance between the two points
     """
     return p1[0] - p2[0], p1[1] - p2[1]
+
+def get_foot_position(bbox):
+    """
+    Get the foot position from the bounding box
+
+    Args:
+        bbox (list): Bounding box in the format [x1, y1, x2, y2]
+
+    Returns:
+        list: Foot position in the format [x, y]
+    """
+    x1, y1, x2, y2 = bbox
+    return int((x1 + x2)/2), int(y2)
