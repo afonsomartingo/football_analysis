@@ -35,3 +35,17 @@ def measure_distance(p1,p2):
         float: Distance between the two points    
     """
     return ((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)**0.5 
+
+def measure_xy_distance(p1,p2):
+    """
+    Measure the distance between two points in x and y axis
+
+    Args:
+        p1 (list): Point 1 in the format [x, y]
+        p2 (list): Point 2 in the format [x, y]
+
+    Returns:    
+        float: Distance between the two points in x axis
+        float: Distance between the two points
+    """
+    return p1[0] - p2[0], p1[1] - p2[1]
